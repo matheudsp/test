@@ -19,52 +19,9 @@ export class DataSyncController {
   @ApiOperation({
     summary: 'Process ANP CSV file',
     description:
-      'Processes local CSV file with ANP fuel price data. Only inserts/updates records if the collection date is newer or equal to existing records.',
+      'Processes local CSV file with ANP fuel price data.',
   })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'CSV processed successfully with detailed statistics',
-    schema: {
-      type: 'object',
-      properties: {
-        success: { type: 'boolean' },
-        message: { type: 'string' },
-        data: {
-          type: 'object',
-          properties: {
-            totalProcessed: {
-              type: 'number',
-              description: 'Total records processed (inserted + updated)',
-            },
-            totalInserted: {
-              type: 'number',
-              description: 'New records inserted',
-            },
-            totalUpdated: {
-              type: 'number',
-              description: 'Existing records updated',
-            },
-            totalSkipped: {
-              type: 'number',
-              description: 'Records skipped (older data)',
-            },
-            totalErrors: { type: 'number', description: 'Records with errors' },
-            errors: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  row: { type: 'number' },
-                  data: { type: 'object' },
-                  error: { type: 'string' },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  })
+  
   @OpenApiResponses([HttpStatus.BAD_REQUEST, HttpStatus.INTERNAL_SERVER_ERROR])
   async processCsv() {
     try {
