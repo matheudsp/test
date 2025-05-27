@@ -5,18 +5,13 @@ import { GasStation } from '@/database/entity/gas-station.entity';
 import { Localization } from '@/database/entity/localization.entity';
 import { Product } from '@/database/entity/product.entity';
 import { PriceHistory } from '@/database/entity/price-history.entity';
-
-// Controllers
 import { DataSyncController } from './data-sync.controller';
-
-// Legacy services (for backward compatibility)
-
-
-// File processing services
-
-
-// SOLID components for CSV processing
-
+import { CsvFileProcessor } from './processors/csv-file.processor';
+import { LocalizationRepository } from './repositories/localization.repository';
+import { ProductRepository } from './repositories/product.repository';
+import { GasStationRepository } from './repositories/gas-station.repository';
+import { PriceHistoryRepository } from './repositories/price-history.repository';
+import { AnpRowValidationStrategy } from './validators/anp-row.validator';
 
 @Module({
   imports: [
@@ -29,11 +24,22 @@ import { DataSyncController } from './data-sync.controller';
     }),
   ],
   providers: [
-   
+    LocalizationRepository,
+    ProductRepository,
+    GasStationRepository,
+    PriceHistoryRepository,
+    CsvFileProcessor,
+    AnpRowValidationStrategy,
+    
   ],
   controllers: [DataSyncController],
   exports: [
-   
+    LocalizationRepository,
+    ProductRepository,
+    GasStationRepository,
+    PriceHistoryRepository,
+    CsvFileProcessor,
+    AnpRowValidationStrategy,
   ],
 })
 export class DataSyncModule {}
